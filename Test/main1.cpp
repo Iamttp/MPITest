@@ -15,7 +15,7 @@ int main ()
     MPI_Comm_rank(MPI_COMM_WORLD,&my_rank);
     MPI_Comm_size(MPI_COMM_WORLD,&comm_sz);
 
-	 if(my_rank==0){
+	 if(my_rank!=0){
 		sprintf(greeting,"Greetings from process %d of %d!",my_rank,comm_sz);
 		MPI_Send(greeting,strlen(greeting),MPI_CHAR,0,0,MPI_COMM_WORLD);
 	}
