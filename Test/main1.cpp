@@ -22,7 +22,9 @@ int main ()
 	else{
 		cout<<"Greetings from process "<<my_rank<<" of "<<comm_sz<<"!"<<endl;
 		for(int i=1;i<comm_sz;i++){
-			MPI_Recv(greeting,max_string,MPI_CHAR,i,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+			//MPI_Recv(greeting,max_string,MPI_CHAR,i,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+			//使用 MPI_ANY_SOURCE 来接收，类似的可以使用 MPI_ANY_TAG 发送
+			MPI_Recv(greeting,max_string,MPI_CHAR,MPI_ANY_SOURCE,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 			cout<<greeting<<endl;
 		}
 	}
