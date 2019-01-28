@@ -95,3 +95,24 @@
 > 点对点通信 MPI_Send：
 > 
 > (const void * buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm)
+
+## 记录
+###### MPI_Allreduce和MPI_Reduce的一个区别就是，MPI_Reduce函数将最后的结果只传给了指定的dest_process 号进程，而MPI_Allreduce函数可以将结果传递给所有的进程，因此所有的进程都能接收到结果。MPI_Allreduce函数的原型也因此不需要指定目标进程号：
+> int MPI_Reduce(
+			void*			input_data_p	/* in */
+			void*			output_data_p	/* out */
+			int				count			/* in */
+			MPI_Datatype	datatype		/* in */
+			MPI_Op			operator		/* in */
+			int				dest_process	/* in */
+			MPI_Comm		comm			/* in */
+			);
+
+> int MPI_Reduce(
+			void*			input_data_p	/* in */
+			void*			output_data_p	/* out */
+			int				count			/* in */
+			MPI_Datatype	datatype		/* in */
+			MPI_Op			operator		/* in */
+			MPI_Comm		comm			/* in */
+			);
