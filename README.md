@@ -1,3 +1,13 @@
+# MPI测试程序
+
+> MPI实现并行是进程级；采用的是分布式内存系统，显式（数据分配方式）实现并行执行，通过通信在进程之间进行消息传递，可扩展性好。MPI虽适合于各种机器，但它的编程模型复杂：
+
+* 需要分析及划分应用程序问题，并将问题映射到分布式进程集合；
+* 需要解决通信延迟大和负载不平衡两个主要问题；
+* 调试MPI程序麻烦；
+* MPI程序可靠性差，一个进程出问题，整个程序将错误；
+
+
 # 一、Test--简单测试MPI:	
 ## 1.编译：
 >  mpicxx -g -Wall -o mpi_hello.o main1.cpp 
@@ -54,7 +64,7 @@
 	}
 	approx = h*approx;
 
-## 编译：
+## main1.cpp--版本1 编译：
 > mpicxx -g -Wall -o mpi_hello.o main1.cpp 
 
 ## 运行及结果：
@@ -66,3 +76,22 @@
 > With n = 1024 trapezoids, our estimate
 > 
 > of the integral from 0.000000 to 3.000000 = 1.148197004588656e+01
+
+## main2.cpp--版本2(加入数据输入和改用集合通信)：
+> 在MPI中，涉及所有的进程的通信函数我们称之为集合通信（collective communication）。而单个进程对单个进程的通信，类似于MPI_Send和MPI_Recv这样的通信函数，我们称之为点对点通信（point-to-point communication）。
+
+#### 特点
+1. 在通信子中的所有进程都必须调用相同的集合通信函数。
+2. 每个进程传递给MPI集合通信函数的参数必须是“相容的”。
+3. 点对点通信函数是通过标签和通信子来匹配的。而通信函数不实用标签，只是通过通信子和调用的顺序来进行匹配。
+
+![avatar](1.png)
+
+#### 参数对比
+> 集合通信 MPI_Reduce：
+> 
+> (const void * sendbuf, void * recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm)
+> 
+> 点对点通信 MPI_Send：
+> 
+> (const void * buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm)
