@@ -22,10 +22,23 @@ int main ()
 	else{
 		cout<<"Greetings from process "<<my_rank<<" of "<<comm_sz<<"!"<<endl;
 		for(int i=1;i<comm_sz;i++){
+			/**
+			 * 注意可以传入MPI_STATUS_IGNORE忽略接受状态
+			 *	int MPI_SOURCE;
+    		 * 	int MPI_TAG;
+    		 * 	int MPI_ERROR;
+			*/
+			MPI_Status local_status;
+			
 			//MPI_Recv(greeting,max_string,MPI_CHAR,i,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 			//使用 MPI_ANY_SOURCE 来接收，类似的可以使用 MPI_ANY_TAG 发送
-			MPI_Recv(greeting,max_string,MPI_CHAR,MPI_ANY_SOURCE,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+			MPI_Recv(greeting,max_string,MPI_CHAR,MPI_ANY_SOURCE,0,MPI_COMM_WORLD,&local_status);
 			cout<<greeting<<endl;
+
+			cout<< "\nMPI_Recv当前状态--MPI_Status:"
+			<< "\nlocal_status.MPI_SOURCE:"<<local_status.MPI_SOURCE 
+			<< "\nlocal_status.MPI_TAG:"<<local_status.MPI_TAG 
+			<< "\nlocal_status.MPI_ERROR:"<<local_status.MPI_ERROR <<endl<<endl;
 		}
 	}
 	
