@@ -6,3 +6,11 @@
 * 需要解决通信延迟大和负载不平衡两个主要问题；
 * 调试MPI程序麻烦；
 * MPI程序可靠性差，一个进程出问题，整个程序将错误；
+
+##目录
+#### 1.点到点通信，简单测试MPI：
+* [MPI_Point_1](/MPI_Point_1/index.md)
+#### 2.集合通信，并行化梯形积分法：
+* [MPI_Collective_1](/MPI_Collective_1/index.md)
+#### 3.点到点通信，随机漫步并行化实现：
+* [MPI_Random_Walk](/MPI_Random_Walk/index.md)
