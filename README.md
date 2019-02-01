@@ -89,4 +89,4 @@ MPI_Gather(
 #### 4.集合通信，MPI_Bcast讲解：
 * [MPI_Cast](/MPI_Cast/index.md)
 #### 5.集合通信，MPI_Scatter和MPI_Gather的使用：
-* [MPI_Cast](/MPI_Collective_2/index.md)
+* [MPI_Collective_2](/MPI_Collective_2/index.md)
