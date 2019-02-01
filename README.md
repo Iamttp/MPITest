@@ -46,6 +46,8 @@ OMPI_DECLSPEC int MPI_Recv(
 > 给每个进程发送的是一个数组的一部分数据
 > MPI_Gather:
 > 调用时，只有根进程需要一个有效的接收缓存。所有其他的调用进程可以传递NULL给recv_data，别忘记recv_count参数是从每个进程接收到的数据数量，而不是所有进程的数据总量之和。这个机制**对很多平行算法很有用，比如并行的排序和搜索。**
+> MPI_Allgather:
+> MPI_Allgather的方法定义跟MPI_Gather几乎一样，只不过MPI_Allgather不需要root这个参数来指定根节点。
 ```cpp
 //把用户输入传递给一个分布式程序，或者把一些配置参数传递给所有的进程。
 MPI_Bcast(
@@ -74,9 +76,20 @@ MPI_Gather(
     MPI_Datatype recv_datatype,
     int root,
     MPI_Comm communicator)
+
+MPI_Allgather(
+    void* send_data,
+    int send_count,
+    MPI_Datatype send_datatype,
+    void* recv_data,
+    int recv_count,
+    MPI_Datatype recv_datatype,
+    MPI_Comm communicator)
+
 ```
 ![avatar](2.png)
 ![avatar](gather.png)
+![avatar](allgather.png)
 
 
 ## 目录
